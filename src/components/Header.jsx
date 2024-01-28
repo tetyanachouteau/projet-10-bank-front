@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import styles from './Header.module.css';
 
-function Layout() {
+function Header() {
     return (
         <nav class="main-nav">
             <a class="main-nav-logo" href="./index.html">
@@ -22,4 +22,4 @@ function Layout() {
         </nav>
     );
 }
-export default Layout;
+export default Header;
