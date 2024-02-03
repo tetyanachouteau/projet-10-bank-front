@@ -1,7 +1,7 @@
 import React from 'react';
-// import styles from "./login.module.css";
+import styles from "./homepage.module.css";
 
-function Login() {
+function Homepage() {
     return (
         <main>
             <div className="hero">
@@ -51,4 +51,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Homepage;
