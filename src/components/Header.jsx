@@ -1,21 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import styles from './Header.module.css';
+import styles from './Header.module.css';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Header() {
     return (
-        <nav className="main-nav">
-            <Link to={"/"} className="main-nav-logo">
+        <nav className={styles.mainNav}>
+            <Link to={"/"} className={styles.mainNavLogo}>
                 <img
-                className="main-nav-logo-image"
+                className={styles.mainNavLogoImage}
                 src="./img/argentBankLogo.png"
                 alt="Argent Bank Logo"
                 />
-                <h1 className="sr-only">Argent Bank</h1>
+                <h1 className={styles.srOnly}>Argent Bank</h1>
             </Link>
             <div>
-                <Link to={"/signin"} className="main-nav-item">
-                <i className="fa fa-user-circle"></i>{" "}
+                <Link to={"/signin"} className={styles.mainNavItem}>
+                <FontAwesomeIcon icon={faUserCircle} />{" "}
                 Sign In
                 </Link>
             </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-// import styles from './Header.module.css';
+import styles from './Footer.module.css';
 
 function Footer() {
     return (
-        <footer className="footer">
-            <p className="footer-text">Copyright 2020 Argent Bank</p>
+        <footer className={styles.footer}>
+            <p className={styles.footerText}>Copyright 2020 Argent Bank</p>
         </footer>
     );
 }
