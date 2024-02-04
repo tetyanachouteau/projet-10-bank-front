@@ -3,6 +3,8 @@ class ProfilModel {
     constructor(profile) {
         this.firstName = profile.firstName;
         this.lastName = profile.lastName;
+        this.id = profile.id;
+        this.email = profile.email;
     }
 }
 

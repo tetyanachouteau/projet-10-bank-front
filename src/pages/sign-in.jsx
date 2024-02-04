@@ -25,12 +25,14 @@ function SignIn() {
     const login = async () => {
         console.log(username);
         console.log(password);
-        const token = await API.login(username, password);
-        if (token) {
-            console.log(token);
+        const data = await API.login(username, password);
+        if (data.token) {
+            console.log(data.token);
+            const profile = await API.getUserProfile(data.token);
+            console.log(profile);
             navigate("/user");
         } else {
-            setError("Error during login !");
+            setError(data);
         }
     }
     // ligne 43 : affiche error en rouge si il y a une erreur (set Error)
