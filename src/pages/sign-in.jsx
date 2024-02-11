@@ -12,7 +12,7 @@ function SignIn() {
     // Définition des états et de la fonction navigate
     const [username, setUsername] = useState(""); // Initialisation de l'état username avec useState
     const [password, setPassword] = useState(""); // Initialisation de l'état password avec useState
-    const [error, setError] = useState(null); // Initialisation de l'état error avec useState
+    const [error, setError] = useState(null); // Initialisation de l'état error avec useState pas de valeur si vide alors je fais ça ou ça
     const navigate = useNavigate(); // Initialisation de la fonction navigate avec useNavigate
 
     // Fonction pour mettre à jour l'état username
@@ -28,7 +28,8 @@ function SignIn() {
     }
 
     // Fonction de connexion
-    const login = async () => {
+    const login = async (event) => {
+        event.preventDefault();
         console.log(username); 
         console.log(password); 
         const data = await API.login(username, password); // Appel de la fonction login depuis le module API
@@ -38,7 +39,7 @@ function SignIn() {
             console.log(profile); 
             navigate("/user"); // Redirection vers la page utilisateur
         } else {
-            setError(data); // Définition de l'erreur avec le message renvoyé
+            setError(data); // Définition de l'erreur avec le message renvoyé 
         }
     }
     
@@ -49,7 +50,7 @@ function SignIn() {
                 <FontAwesomeIcon icon={faUserCircle} className={styles.signInIcon} /> {/* Icône de connexion */}
                 <h1>Sign In</h1> {/* Titre de la section */}
                 {error && <p style={{ color: 'red' }}>{error}</p>} {/* Affichage de l'erreur si elle existe */}
-                <form>
+                <form onSubmit={login}>
                     <div className={styles.inputWrapper}>
                         <label htmlFor="username">Username</label> {/* Champ de saisie pour le nom d'utilisateur */}
                         <input type="text" id="username" value={username} onChange={usernameChange} autoComplete="email" /> {/* Champ de saisie du nom d'utilisateur */}
@@ -61,7 +62,7 @@ function SignIn() {
                     <div className={styles.inputRemember}>
                         <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label> {/* Case à cocher pour se souvenir de l'utilisateur */}
                     </div>
-                    <button type="button" onClick={login} className={styles.signInButton}>Sign In</button> {/* Bouton de connexion est un bouton de connexion qui déclenche la fonction login lorsqu'il est cliqué. */}
+                    <button type="submit" className={styles.signInButton}>Sign In</button> {/* ("bouton"que declanche type="submit"Bouton de connexion est un bouton de connexion qui déclenche la fonction login lorsqu'il est cliqué. */}
                 </form>
             </section>
         </main>
