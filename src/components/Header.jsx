@@ -1,7 +1,7 @@
 import React from 'react'; // Import de React
 import { Link } from 'react-router-dom'; // Import du composant Link de React Router
 import styles from './Header.module.css'; // Import des styles CSS
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'; // Import de l'icône utilisateur
+import { faUserCircle, faSignOut } from '@fortawesome/free-solid-svg-icons'; // Import de l'icône utilisateur
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import du composant FontAwesomeIcon
 import { useSelector } from 'react-redux'; // Import du hook useSelector pour accéder à l'état Redux
 
@@ -19,11 +19,17 @@ function Header() {
                 />
                 <h1 className={styles.srOnly}>Argent Bank</h1>
             </Link>
-            <div>
+            <div className={styles.profileContainer}>
+                {profile &&
+                    <>
+                        <FontAwesomeIcon icon={faUserCircle} />{" "} {/* Icône utilisateur */}
+                        {profile && profile.firstName}{/* Affichage du nom d'utilisateur */}
+                    </>
+                }
                 {/* Lien vers la page de connexion ou de déconnexion en fonction de l'état du profil */}
                 <Link to={profile ? "/signout" : "/signin"} className={styles.mainNavItem}>
-                    <FontAwesomeIcon icon={faUserCircle} />{" "} {/* Icône utilisateur */}
-                    {profile ? profile.firstName : "Sign In"} {/* Affichage du nom d'utilisateur ou "Sign In" */}
+                    <FontAwesomeIcon icon={profile ? faSignOut : faUserCircle} />{" "} {/* Icône deconnexion ou utilisateur */}
+                    {profile ? "Sign Out" : "Sign In"} {/* Affichage "Sign Out" ou "Sign In" */}
                 </Link>
             </div>
         </nav>

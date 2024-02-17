@@ -49,3 +49,10 @@
     max-width: 100%;
     width: 200px;
 }
+
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
