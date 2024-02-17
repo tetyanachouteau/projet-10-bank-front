@@ -7,6 +7,8 @@ function User() {
     // Utilisation du hook useSelector pour accéder au profil utilisateur dans le store Redux
     const profile = useSelector((state) => JSON.parse(state.auth.profile));
     const [isEdit, setIsEdit] = useState(false);
+    const [errorFN, setErrorFN] = useState("");
+    const [errorLN, setErrorLN] = useState("");
 
     const clickEdit = () => {
         setIsEdit(true);
@@ -16,8 +18,33 @@ function User() {
         setIsEdit(false);
     }
 
-    const clickSave = () => {
-        setIsEdit(false);
+    const clickSave = async (event) => {
+        event.preventDefault();
+        //setIsEdit(false);
+    }
+
+    const changeFN = (event) => {
+        const value = event.target.value
+        let error = validateInput(value);
+        setErrorFN(error);
+    }
+
+    const changeLN = (event) => {
+        const value = event.target.value
+        let error = validateInput(value);
+        setErrorLN(error);
+    }
+
+    const validateInput = (value) => {
+        console.log(value);
+        let regex = /^[a-zA-Z]([a-zA-Z\s]*)[a-zA-Z]*$/gm
+        if (!value)
+            return "La valeur ne peut pas être vide"
+        else if (!value.trim())
+            return "La valeur ne peut pas être que des espaces"
+        else if (!regex.test(value))
+            return "La valeur ne peut contenir que les lettres"
+        return null;
     }
 
     // Retourne le contenu du composant
@@ -28,9 +55,14 @@ function User() {
                 {!isEdit && <button className={styles.editButton} onClick={clickEdit}>Edit Name</button>} {/* Bouton pour éditer le nom qui fait apparaître le form */}
                 {isEdit &&
                     <form>
+                        {(errorFN || errorLN) && <div className={styles.errorBlock}>
+                            <p className={`${styles.errorP} ${styles.errorPR}`}>{errorFN && errorFN}</p> {/* Affichage de l'erreur si elle existe */}
+                            <p className={styles.errorP}>{errorLN && errorLN}</p> {/* Affichage de l'erreur si elle existe */}
+                        </div>
+                        }
                         <div className={styles.inputBlock}>
-                            <input type='text' placeholder={profile.firstName} />
-                            <input type='text' placeholder={profile.lastName} />
+                            <input type='text' placeholder={profile.firstName} onChange={changeFN} />
+                            <input type='text' placeholder={profile.lastName} onChange={changeLN} />
                         </div>
                         <div className={styles.buttonBlock}>
                             <input type='submit' onClick={clickSave} value='Save' />
