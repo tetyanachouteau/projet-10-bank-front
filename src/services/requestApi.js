@@ -44,6 +44,25 @@ const API = {
             // En cas d'erreur, retourne null
             return null;
         }
+    },
+
+    // Méthode pour récupérer le profil de l'utilisateur
+    setUserNewNames: async (token, first, last) => {
+        try {
+            // Envoi d'une requête POST pour récupérer le profil de l'utilisateur en utilisant le token d'authentification
+            const response = await axios.put('http://localhost:3001/api/v1/user/profile', {"firstName": first, "lastName": last}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            // Affichage des données renvoyées par le serveur dans la console
+            console.log(response.data);
+             // Retourne une instance de ProfilModel contenant les données renvoyées par le serveur
+            return new ProfilModel(response.data.body);
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     }
 };
 

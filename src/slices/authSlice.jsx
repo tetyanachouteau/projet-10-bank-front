@@ -26,10 +26,14 @@ const authSlice = createSlice({
             state.profile = null; // Effacer le profil utilisateur
             localStorage.clear();
         },
+        updateProfile(state, action){
+            state.profile = action.payload; // Définir le profil utilisateur avec celui fourni dans l'action
+            localStorage.setItem("profile", action.payload);
+        }
     },
 });
 
 // Export des actions de connexion et de déconnexion
-export const { login, logout } = authSlice.actions;
+export const { login, logout, updateProfile } = authSlice.actions;
 // Export du reducer du slice
 export default authSlice.reducer;

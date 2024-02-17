@@ -3,12 +3,23 @@ import Account from '../components/Account'; // Import du composant Account
 import styles from './user.module.css'; // Import des styles CSS spécifiques à ce composant
 import { useSelector } from 'react-redux'; // Import du hook useSelector pour accéder à l'état Redux
 
+import API from '../services/requestApi'; // Import du module API depuis '../services/requestApi'
+
+import { useDispatch } from 'react-redux'; // Import du hook useDispatch pour envoyer des actions Redux
+import { updateProfile } from '../slices/authSlice'; // Import de l'action de connexion depuis le slice authSlice
+
 function User() {
     // Utilisation du hook useSelector pour accéder au profil utilisateur dans le store Redux
     const profile = useSelector((state) => JSON.parse(state.auth.profile));
+    const token = useSelector((state) => state.auth.token);
     const [isEdit, setIsEdit] = useState(false);
     const [errorFN, setErrorFN] = useState("");
     const [errorLN, setErrorLN] = useState("");
+    // récupération des nouveaux nom et prenom
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    const dispatch = useDispatch(); // Initialisation de la fonction dispatch avec useDispatch
 
     const clickEdit = () => {
         setIsEdit(true);
@@ -20,19 +31,31 @@ function User() {
 
     const clickSave = async (event) => {
         event.preventDefault();
-        //setIsEdit(false);
+
+        // Sauvegarde du formaulaire
+
+        if(firstName && lastName){
+            const profile = await API.setUserNewNames(token, firstName, lastName);
+            dispatch(updateProfile(JSON.stringify(profile)));
+        }
+
+        setIsEdit(false);
     }
 
     const changeFN = (event) => {
         const value = event.target.value
         let error = validateInput(value);
         setErrorFN(error);
+        if(!error)
+            setFirstName(value);
     }
 
     const changeLN = (event) => {
         const value = event.target.value
         let error = validateInput(value);
         setErrorLN(error);
+        if(!error)
+            setLastName(value);
     }
 
     const validateInput = (value) => {
