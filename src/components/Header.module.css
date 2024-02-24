@@ -53,6 +53,18 @@
 .profileContainer {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 20px;
     flex-wrap: nowrap;
+    height: 16px;
+    line-height: 16px;
+}
+.profileSubContainer {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.profileSubContainer svg {
+    color: #AAA;
 }

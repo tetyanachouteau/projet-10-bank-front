@@ -20,17 +20,21 @@ function Header() {
                 <h1 className={styles.srOnly}>Argent Bank</h1>
             </Link>
             <div className={styles.profileContainer}>
+                <div className={styles.profileSubContainer}>
                 {profile &&
                     <>
                         <FontAwesomeIcon icon={faUserCircle} />{" "} {/* Icône utilisateur */}
                         {profile && profile.firstName}{/* Affichage du nom d'utilisateur */}
                     </>
                 }
+                </div>
+                <div className={styles.profileSubContainer}>
                 {/* Lien vers la page de connexion ou de déconnexion en fonction de l'état du profil */}
+                <FontAwesomeIcon icon={profile ? faSignOut : faUserCircle} />{" "} {/* Icône deconnexion ou utilisateur */}
                 <Link to={profile ? "/signout" : "/signin"} className={styles.mainNavItem}>
-                    <FontAwesomeIcon icon={profile ? faSignOut : faUserCircle} />{" "} {/* Icône deconnexion ou utilisateur */}
-                    {profile ? "Sign Out" : "Sign In"} {/* Affichage "Sign Out" ou "Sign In" */}
+                    {profile ? "Sign out" : "Sign in"} {/* Affichage "Sign Out" ou "Sign In" */}
                 </Link>
+                </div>
             </div>
         </nav>
     );
