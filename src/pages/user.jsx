@@ -16,8 +16,8 @@ function User() {
     const [errorFN, setErrorFN] = useState("");
     const [errorLN, setErrorLN] = useState("");
     // récupération des nouveaux nom et prenom
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState(profile.firstName);
+    const [lastName, setLastName] = useState(profile.lastName);
 
     const dispatch = useDispatch(); // Initialisation de la fonction dispatch avec useDispatch
 
@@ -97,8 +97,8 @@ const validateInput = (value) => {
                         </div>
                         }
                         <div className={styles.inputBlock}>
-                            <input type='text' placeholder={profile.firstName} onChange={changeFN} />
-                            <input type='text' placeholder={profile.lastName} onChange={changeLN} />
+                            <input type='text' value={firstName} onChange={changeFN} />
+                            <input type='text' value={lastName} onChange={changeLN} />
                         </div>
                         <div className={styles.buttonBlock}>
                             <input type='submit' onClick={clickSave} value='Save' />
