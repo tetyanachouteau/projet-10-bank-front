@@ -28,6 +28,8 @@ function User() {
     const clickCancel = () => {
         setLastName(profile.lastName);
         setFirstName(profile.firstName);
+        setErrorFN(null);
+        setErrorLN(null);
         setIsEdit(false);
     }
 
