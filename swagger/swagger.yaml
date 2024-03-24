@@ -137,7 +137,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/account/{accountid}/transactions/{month}:
     get:
       security:
         - Bearer: []
@@ -151,19 +151,16 @@ paths:
           description: Attach Bearer JWT token
           required: true
           type: string
-        - in: body
-          name: body
-          description: Transaction detail
+        - in: path
+          name: month
+          description: month to get
           required: true
-          schema:
-            properties:
-              idAccount:
-                type: string
-              month:
-                type: integer
-                description: if not set, it is the current month
-            required: 
-              - idAccount
+          type: integer
+        - in: path
+          name: accountid
+          description: account id
+          required: true
+          type: integer
       produces:
         - application/json
       responses:
@@ -205,7 +202,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transaction/{id}/category:
+  /user/transaction/{id}:
     post:
       security:
         - Bearer: []
@@ -232,15 +229,21 @@ paths:
             properties:
               category:
                 type: string
+              notes:
+                type: string
       produces:
         - application/json
       responses:
-        '200':
+        '201':
           description: User transactions category created successully
           schema:
              properties:
               category:
                 type: string
+              notes:
+                type: string
+        '422':
+          description: Unprocessable Entity 
         '400':
           description: Invalid Fields
         '500':
@@ -271,6 +274,8 @@ paths:
             properties:
               category:
                 type: string
+              notes:
+                type: string
       produces:
         - application/json
       responses:
@@ -280,6 +285,8 @@ paths:
              properties:
               category:
                 type: string
+        '422':
+          description: Unprocessable Entity 
         '400':
           description: Invalid Fields
         '500':
@@ -302,117 +309,9 @@ paths:
           description: Transaction ID
           required: true
           type: string
-      produces:
-        - application/json
       responses:
-        '200':
+        '204':
           description: Transactions category deleted successully
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/transaction/{id}/notes:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: Transaction detail API
-      description: API for create the notes of the transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: id
-          description: Transaction ID
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Transaction notes
-          required: true
-          schema:
-            properties:
-              notes:
-                type: string
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User transactions notes created successully
-          schema:
-             properties:
-              notes:
-                type: string
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: Transaction detail API
-      description: API for update the notes of the transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: id
-          description: Transaction ID
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Transaction notes
-          required: true
-          schema:
-            properties:
-              notes:
-                type: string
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User transactions notes updated successully
-          schema:
-             properties:
-              notes:
-                type: string
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: Transaction detail API
-      description: API for delete the notes of the transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: id
-          description: Transaction ID
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transactions notes deleted successully
         '400':
           description: Invalid Fields
         '500':
